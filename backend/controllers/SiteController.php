@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\search\AppleForm;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
@@ -56,31 +57,21 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
-    /**
      * Login action.
      *
      * @return string|Response
      */
     public function actionLogin()
     {
+        $this->layout = 'blank';
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $this->layout = 'blank';
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goHome();
         }
 
         $model->password = '';
