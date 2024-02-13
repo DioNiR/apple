@@ -2,9 +2,9 @@
 
 $params = array_merge_recursive(
     require __DIR__ . '/../../common/config/params.php',
-    require __DIR__ . '/../../common/config/params-local.php',
+    (file_exists(__DIR__ . '/../../common/config/params-local.php') ? require __DIR__ . '/../../common/config/params-local.php' : []),
     require __DIR__ . '/params.php',
-    require __DIR__ . '/params-local.php'
+    (file_exists(__DIR__ . '/params-local.php') ? require __DIR__ . '/params-local.php' : [])
 );
 
 return [
