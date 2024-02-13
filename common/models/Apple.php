@@ -42,6 +42,9 @@ class Apple extends BaseModel
         $service->change($percent);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function fallToGround()
     {
         $service = new AppleChangeStatusService($this);
@@ -59,6 +62,9 @@ class Apple extends BaseModel
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public static function getColors(): array
     {
         return[

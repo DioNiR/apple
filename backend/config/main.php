@@ -1,9 +1,9 @@
 <?php
 $params = array_merge_recursive(
     require __DIR__ . '/../../common/config/params.php',
-    require __DIR__ . '/../../common/config/params-local.php',
+    (file_exists(__DIR__ . '/../../common/config/params-local.php') ? require __DIR__ . '/../../common/config/params-local.php' : []),
     require __DIR__ . '/params.php',
-    require __DIR__ . '/params-local.php'
+    (file_exists(__DIR__ . '/params-local.php') ? require __DIR__ . '/params-local.php' : [])
 );
 
 return [
@@ -15,6 +15,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'cookieValidationKey' => 'xC1EGmo5qm2cwbcO33pquNEgiJVR1Q6r', // Для теста
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -37,6 +38,7 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

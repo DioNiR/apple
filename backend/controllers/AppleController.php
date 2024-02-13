@@ -10,12 +10,32 @@ use common\components\domain\service\AppleChangeStatusService;
 use common\models\Apple;
 use common\models\BaseModel;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class AppleController extends Controller
 {
     public $layout = 'main';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['index', 'test', 'generate', 'update', 'delete', 'drop'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {
